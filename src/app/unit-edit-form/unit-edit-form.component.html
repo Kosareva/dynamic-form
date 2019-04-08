@@ -1,3 +1,5 @@
-<p>
-  unit-edit-form works!
-</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <app-dynamic-form-input [form]="form" [field]="getFormFieldByKey('firstName')"></app-dynamic-form-input>
+  <app-dynamic-form-select [form]="form" [field]="getFormFieldByKey('type')"></app-dynamic-form-select>
+  <button type="submit">Submit</button>
+</form>
