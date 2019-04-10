@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {DynamicFormService} from '../modules/dynamic-form/dynamic-form.service';
 import {DynamicFormFieldBase} from '../modules/dynamic-form/model/DynamicFormFieldBase';
 import {DynamicFormFieldInput} from '../modules/dynamic-form/model/DynamicFormFieldInput';
 import {DynamicFormAbstractComponent} from '../modules/dynamic-form/model/DynamicFormAbstractComponent';
-import {Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {DynamicFormFieldSelect} from '../modules/dynamic-form/model/DynamicFormFieldSelect';
 
 @Component({
@@ -48,21 +47,27 @@ export class UnitEditFormComponent extends DynamicFormAbstractComponent implemen
           value: 'Three'
         },
       ],
+      validators: [
+        {
+          validator: Validators.required,
+          name: 'required',
+          message: 'Type required!'
+        }
+      ]
     }),
   ];
 
   constructor(
-    private dynamicFormService: DynamicFormService,
+    protected fb: FormBuilder,
   ) {
-    super();
+    super(fb);
   }
 
   ngOnInit() {
-    this.form = this.dynamicFormService.toFormGroup(this.config);
+    this.form = this.createGroup();
   }
 
   onSubmit() {
-    console.log('FORM', this.form);
     this.markAllAsTouched();
   }
 

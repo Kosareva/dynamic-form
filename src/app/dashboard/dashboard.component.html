@@ -1,6 +1,4 @@
 <h1>Dashboard</h1>
 <button (click)="createUnit()">Create unit</button>
 
-<!--<select id="select" [compareWith]="compareFn">-->
-<!--  <option *ngFor="let opt of field.options" [value]="stringifyIfObject(opt.key)">{{opt.value}}</option>-->
-<!--</select>-->
+<app-dynamic-form (submit)="onSubmit($event)" [config]="config"></app-dynamic-form>

@@ -1,7 +1,7 @@
 import {DynamicFormFieldBase} from './DynamicFormFieldBase';
 
-export class DynamicFormFieldSelect<T> extends DynamicFormFieldBase<T> {
-  controlType = 'select';
+export class DynamicFormFieldRadiobutton<T> extends DynamicFormFieldBase<T> {
+  controlType = 'radiobutton';
   options: { key: T, value: string }[] = [];
 
   constructor(options: {} = {}) {

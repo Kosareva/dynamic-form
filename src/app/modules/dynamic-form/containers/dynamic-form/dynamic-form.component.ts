@@ -1,34 +1,27 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder} from '@angular/forms';
+import {DynamicFormAbstractComponent} from '../../model/DynamicFormAbstractComponent';
 
 @Component({
   selector: 'app-dynamic-form',
   template: `
-    <form
-      class="dynamic-form"
-      [formGroup]="form"
-    ></form>
+    <form class="dynamic-form" [formGroup]="form" (ngSubmit)="onSubmit($event)">
+      <ng-container *ngFor="let field of config">
+        <ng-container *ngIf="!field.hidden" appDynamicFormField [field]="field" [form]="form"></ng-container>
+      </ng-container>
+    </form>
   `,
 })
-export class DynamicFormComponent implements OnInit {
-
-  @Input()
-  config: any[] = [];
-  form: FormGroup;
+export class DynamicFormComponent extends DynamicFormAbstractComponent implements OnInit {
 
   constructor(
-    private fb: FormBuilder,
+    protected fb: FormBuilder,
   ) {
+    super(fb);
   }
 
   ngOnInit() {
     this.form = this.createGroup();
-  }
-
-  createGroup() {
-    const group = this.fb.group({});
-    this.config.forEach(control => group.addControl(control.name, this.fb.control('')));
-    return group;
   }
 
 }
